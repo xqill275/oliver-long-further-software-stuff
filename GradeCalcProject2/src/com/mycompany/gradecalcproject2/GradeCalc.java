@@ -58,23 +58,19 @@ public class GradeCalc {
     }
     
     public String getGradeClassification(double gradeAverage) {
-        String gradeClass = "";
-
         if (gradeAverage <= 38.0) {
-            gradeClass = "FAIL";
+            return "FAIL";
         } else if (gradeAverage <= 48.0) {
-            gradeClass = "3RD";
+            return "3RD";
         } else if (gradeAverage <= 58.0) {
-            gradeClass = "2.2";
+            return "2.2";
         } else if (gradeAverage <= 68.0) {
-            gradeClass = "2.1";
-        } else if (gradeAverage <= 72.0) {
-            gradeClass = "1";
+            return "2.1";
+        } else if (gradeAverage <= 100.0 && gradeAverage > 72.0) { // Range for "1st"
+            return "1ST";
         } else {
-            gradeClass = "Unclassified"; // Handle cases where average is between 68.1 and 71.9
+            return "Unclassified"; // For grades above 100 or invalid input
         }
-
-        return gradeClass;
     }
 
 
