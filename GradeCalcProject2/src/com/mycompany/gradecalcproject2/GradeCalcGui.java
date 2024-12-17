@@ -92,6 +92,7 @@ public class GradeCalcGui extends GradeCalc {
                     String gradeClassA = getGradeClassification(finalGradeAverageA);
                     String gradeClassB = getGradeClassification(finalGradeAverageB);
                     String gradeClassC = getGradeClassification(finalGradeAverageC);
+                    String bestGrade = getBestGrade();
                             
                     
                     String resultMessage = String.format(
@@ -100,10 +101,11 @@ public class GradeCalcGui extends GradeCalc {
                         "Method C: Final Average = %.2f, Grade = %s",
                         finalGradeAverageA, gradeClassA,
                         finalGradeAverageB, gradeClassB,
-                        finalGradeAverageC, gradeClassC
+                        finalGradeAverageC, gradeClassC,
+                        bestGrade
                     );
                     JOptionPane.showMessageDialog(frame, resultMessage, "Grade Calculation Results", JOptionPane.INFORMATION_MESSAGE);
-                    uploadToDb(txtNumModules,txtLevel5Grades,txtLevel6Grades,txtLevel5Credits,txtLevel6Credits, gradeClassC);
+                    uploadToDb(txtNumModules,txtLevel5Grades,txtLevel6Grades,txtLevel5Credits,txtLevel6Credits, bestGrade);
                 } catch (Exception ex) {
                      JOptionPane.showMessageDialog(frame, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -136,7 +138,8 @@ public class GradeCalcGui extends GradeCalc {
         return result;
     }
     
-    private void uploadToDb(JTextField txtNumModules, JTextField txtLevel5Grades, JTextField txtLevel6Grades, JTextField txtLevel5Credits, JTextField txtLevel6Credits, String gradeClassC) {
+    
+    private void uploadToDb(JTextField txtNumModules, JTextField txtLevel5Grades, JTextField txtLevel6Grades, JTextField txtLevel5Credits, JTextField txtLevel6Credits, String bestGrade) {
         try {
             String sql = "INSERT INTO gradedb (NumModles, GradesLV5, CreditsLV5, GradesLV6, CreditsLV6, gradeFinal) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -153,7 +156,7 @@ public class GradeCalcGui extends GradeCalc {
             preparedStatement.setString(3, level6Grades);
             preparedStatement.setString(4, level5Credits);
             preparedStatement.setString(5, level6Credits);
-            preparedStatement.setString(6, gradeClassC);
+            preparedStatement.setString(6, bestGrade);
             
 
             // Execute the query

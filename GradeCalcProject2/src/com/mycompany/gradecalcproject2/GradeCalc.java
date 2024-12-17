@@ -73,7 +73,35 @@ public class GradeCalc {
         }
     }
 
+    
+    public String getBestGrade() {
+        double gradeA = calcMethodA();
+        double gradeB = calcMethodB();
+        double gradeC = calcMethodC();
+        
+        if (Double.isNaN(gradeA)) {
+            gradeA = Double.NEGATIVE_INFINITY;
+        }
+        if (Double.isNaN(gradeB)) {
+            gradeB = Double.NEGATIVE_INFINITY;
+        }
+        if (Double.isNaN(gradeC)) {
+            gradeC = Double.NEGATIVE_INFINITY;
+        }
+        
+        
+        System.out.println("A: " + gradeA);
+        System.out.println("B: " + gradeB);
+        System.out.println("C: " + gradeC);
+        
+        double bestGrade = Math.max(gradeA, Math.max(gradeB, gradeC));
+        
+        System.out.println("bestGrade: "+bestGrade);
 
+        return getGradeClassification(bestGrade);
+    }
+    
+    
     public int getSumCredits(int[] creditList) {
         int creditTotal = 0;
         for (int i = 0; i < creditList.length; i++) {
