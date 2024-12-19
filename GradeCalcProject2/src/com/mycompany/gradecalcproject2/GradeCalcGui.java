@@ -68,6 +68,7 @@ public class GradeCalcGui extends GradeCalc {
 
         
         calculateButton.addActionListener(new ActionListener() {
+            // when the calaculate button is pressed take all the user inputs and calculate the grades and display them in a text box
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -84,8 +85,8 @@ public class GradeCalcGui extends GradeCalc {
                     setGradeCreditLevelFive(level5Credits);
                     setGradeCreditLevelSix(level6Credits);
 
-                    // Perform calculations and display result
-                    double finalGradeAverageA = calcMethodA(); // Example using Method A
+                    // calc the grades and display result
+                    double finalGradeAverageA = calcMethodA();
                     double finalGradeAverageB = calcMethodB();
                     double finalGradeAverageC = calcMethodC();
                     
@@ -141,6 +142,7 @@ public class GradeCalcGui extends GradeCalc {
     
     private void uploadToDb(JTextField txtNumModules, JTextField txtLevel5Grades, JTextField txtLevel6Grades, JTextField txtLevel5Credits, JTextField txtLevel6Credits, String bestGrade) {
         try {
+            // this function just uploads all the userdata into the database
             String sql = "INSERT INTO gradedb (NumModles, GradesLV5, CreditsLV5, GradesLV6, CreditsLV6, gradeFinal) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -179,6 +181,7 @@ public class GradeCalcGui extends GradeCalc {
     }
     
     private void displayLeaderboard() {
+        // this simply gets the all the grades from the DB and displays them in ascending order
         try {
             String sql = "SELECT gradeFinal FROM gradedb ORDER BY gradeFinal ASC";
             Statement statement = connection.createStatement();
